@@ -73,3 +73,5 @@ That's it!
 ## See Also
 
 - `prod-spec.md` - Full product specification with all features planned
+
+- Scope - Possibility to add hyperlink to the email and also classify as something that can should be unsubscribed direct link to unsubscribe

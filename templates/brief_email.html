@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Brief - {{ date }}</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            color: #2c3e50;
+        }
+        .header .date {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            font-size: 14px;
+            color: #555;
+        }
+        .stat strong {
+            font-weight: 600;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .section-header h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .section-header .count {
+            margin-left: 8px;
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+        .email-item {
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-left: 4px solid #ddd;
+        }
+        .action-item {
+            border-left-color: #e74c3c;
+        }
+        .waiting-item {
+            border-left-color: #f39c12;
+        }
+        .info-item {
+            border-left-color: #27ae60;
+        }
+        .priority-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-right: 8px;
+        }
+        .priority-high {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .priority-medium {
+            background-color: #f39c12;
+            color: white;
+        }
+        .priority-low {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .sender {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .subject {
+            font-size: 15px;
+            color: #34495e;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .what-needed {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .deadline {
+            color: #e74c3c;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .info-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+            color: #555;
+        }
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        .footer-stats {
+            margin-bottom: 10px;
+        }
+        .gmail-link {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 12px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .gmail-link:hover {
+            background-color: #2980b9;
+        }
+        .empty-section {
+            color: #95a5a6;
+            font-style: italic;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>☀️ Your Brief</h1>
+            <div class="date">{{ date }}</div>
+            <div class="stats">
+                <span class="stat"><strong>{{ action_count }}</strong> actions</span>
+                <span class="stat"><strong>{{ waiting_count }}</strong> waiting</span>
+                <span class="stat"><strong>{{ info_count }}</strong> info</span>
+                <span class="stat"><strong>{{ ignore_count }}</strong> filtered</span>
+            </div>
+        </div>
+
+        <!-- ACTION REQUIRED -->
+        <div class="section">
+            <div class="section-header">
+                <h2>🔴 Action Required</h2>
+                <span class="count">({{ action_count }})</span>
+            </div>
+            {% if action_items %}
+                {% for item in action_items %}
+                <div class="email-item action-item">
+                    {% if item.priority %}
+                    <span class="priority-badge priority-{{ item.priority }}">{{ item.priority }}</span>
+                    {% endif %}
+                    <div class="sender">{{ item.sender_name }}</div>
+                    <div class="subject">{{ item.subject }}</div>
+                    {% if item.what_needed %}
+                    <div class="what-needed">📝 {{ item.what_needed }}</div>
+                    {% endif %}
+                    {% if item.deadline %}
+                    <div class="deadline">⏰ Deadline: {{ item.deadline }}</div>
+                    {% endif %}
+                    <a href="https://mail.google.com/mail/u/0/#inbox/{{ item.gmail_id }}" class="gmail-link">Open in Gmail</a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-section">No action items today 🎉</div>
+            {% endif %}
+        </div>
+
+        <!-- WAITING ON OTHERS -->
+        {% if waiting_items %}
+        <div class="section">
+            <div class="section-header">
+                <h2>🟡 Waiting On Others</h2>
+                <span class="count">({{ waiting_count }})</span>
+            </div>
+            {% for item in waiting_items %}
+            <div class="email-item waiting-item">
+                <div class="sender">{{ item.sender_name }}</div>
+                <div class="subject">{{ item.subject }}</div>
+                {% if item.what_needed %}
+                <div class="what-needed">⏳ {{ item.what_needed }}</div>
+                {% endif %}
+                {% if item.deadline %}
+                <div class="deadline">Expected: {{ item.deadline }}</div>
+                {% endif %}
+                <a href="https://mail.google.com/mail/u/0/#inbox/{{ item.gmail_id }}" class="gmail-link">Open in Gmail</a>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- INFO ONLY -->
+        {% if info_items %}
+        <div class="section">
+            <div class="section-header">
+                <h2>🟢 Info Only</h2>
+                <span class="count">({{ info_count }})</span>
+            </div>
+            <ul class="info-list">
+                {% for item in info_items %}
+                <li>
+                    <strong>{{ item.sender_name }}:</strong> {{ item.subject }}
+                    <a href="https://mail.google.com/mail/u/0/#inbox/{{ item.gmail_id }}" class="gmail-link" style="margin-left: 10px;">View</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <div class="footer-stats">
+                <strong>{{ ignore_count }}</strong> emails were filtered as promotional/noise
+            </div>
+            <div>
+                This brief analyzed <strong>{{ total_emails }}</strong> emails from the last 24 hours
+            </div>
+        </div>
+    </div>
+</body>
+</html>
