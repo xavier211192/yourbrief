@@ -51,6 +51,7 @@ def generate_brief(classifications: List[Dict[str, Any]], output_file: str = "br
         'action_items': action_items,
         'waiting_items': waiting_items,
         'info_items': info_items,
+        'ignore_items': ignore_items,
     }
 
     # Set up Jinja2 environment

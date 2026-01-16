@@ -253,6 +253,28 @@
         </div>
         {% endif %}
 
+        <!-- FILTERED/IGNORED -->
+        {% if ignore_items %}
+        <div class="section">
+            <div class="section-header">
+                <h2>⚪ Filtered (Promotional/Noise)</h2>
+                <span class="count">({{ ignore_count }})</span>
+            </div>
+            <ul class="info-list">
+                {% for item in ignore_items[:10] %}
+                <li style="color: #95a5a6;">
+                    <strong>{{ item.sender_name }}:</strong> {{ item.subject }}
+                </li>
+                {% endfor %}
+                {% if ignore_count > 10 %}
+                <li style="color: #95a5a6; font-style: italic;">
+                    ... and {{ ignore_count - 10 }} more filtered emails
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+
         <!-- FOOTER -->
         <div class="footer">
             <div class="footer-stats">

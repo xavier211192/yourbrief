@@ -82,8 +82,13 @@ def fetch_recent_emails(hours: int = 24) -> List[Dict[str, Any]]:
     time_ago = datetime.now(timezone.utc) - timedelta(hours=hours)
     query_timestamp = int(time_ago.timestamp())
 
-    # Query: emails after timestamp, in inbox
+    # Get SendGrid sender email to exclude from results (avoid analyzing our own briefs)
+    sendgrid_from = os.getenv('SENDGRID_FROM_EMAIL', '')
+
+    # Query: emails after timestamp, exclude our own briefs
     query = f'after:{query_timestamp}'
+    if sendgrid_from:
+        query += f' -from:{sendgrid_from}'
 
     # Fetch message IDs
     results = service.users().messages().list(
