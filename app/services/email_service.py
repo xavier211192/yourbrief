@@ -55,6 +55,7 @@ def generate_brief_html(classifications: List[Dict[str, Any]]) -> str:
         'action_items': action_items,
         'waiting_items': waiting_items,
         'info_items': info_items,
+        'ignore_items': ignore_items,
     }
 
     # Set up Jinja2 environment
