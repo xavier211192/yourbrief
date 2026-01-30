@@ -1,0 +1,82 @@
+{% extends "web/base.html" %}
+
+{% block title %}Success - Your Brief{% endblock %}
+
+{% block content %}
+<style>
+    .success-container {
+        max-width: 600px;
+        margin: 60px auto;
+        background: white;
+        padding: 50px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    .checkmark {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: #27ae60;
+        margin: 0 auto 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 50px;
+        color: white;
+    }
+    h1 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+    }
+    p {
+        color: #7f8c8d;
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    .next-steps {
+        text-align: left;
+        margin: 40px 0;
+        padding: 30px;
+        background: #f8f9fa;
+        border-radius: 5px;
+    }
+    .next-steps h3 {
+        margin-bottom: 15px;
+        color: #2c3e50;
+    }
+    .next-steps ul {
+        list-style: none;
+    }
+    .next-steps li {
+        padding: 10px 0;
+        color: #555;
+    }
+    .next-steps li:before {
+        content: "→ ";
+        color: #3498db;
+        font-weight: bold;
+        margin-right: 8px;
+    }
+</style>
+
+<div class="success-container">
+    <div class="checkmark">✓</div>
+    <h1>You're All Set!</h1>
+    <p>Your Brief is now configured and ready to go.</p>
+    <p>You'll receive your first brief tomorrow morning.</p>
+
+    <div class="next-steps">
+        <h3>What's Next?</h3>
+        <ul>
+            <li>Check your inbox tomorrow for your first brief</li>
+            <li>The brief will show action items, waiting items, and info</li>
+            <li>All promotional emails will be automatically filtered</li>
+            <li>You can adjust preferences anytime in your account</li>
+        </ul>
+    </div>
+
+    <a href="/user/preferences" class="btn">Update Preferences</a>
+    <a href="/" class="btn btn-secondary" style="margin-left: 10px;">Back to Home</a>
+</div>
+{% endblock %}
